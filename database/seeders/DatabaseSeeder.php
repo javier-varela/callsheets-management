@@ -12,6 +12,9 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
+    /**
+     * Seed the application's database.
+     */
     public function run(): void
     {
         // Crear los roles si no existen
@@ -26,12 +29,14 @@ class DatabaseSeeder extends Seeder
         ]);
         $adminUser->roles()->attach($adminRole); // Asignar el rol de admin al usuario
 
-        // Crear un usuario de ejemplo y asignarle el rol de 'user'
-        $user = User::factory()->create([
-            'name' => 'usuario',
-            'email' => 'user@user.com',
-            'password' => bcrypt('password'), // puedes cambiar la contraseña
-        ]);
-        $user->roles()->attach($userRole); // Asignar el rol de usuario al usuario
+        // Crear 9 usuarios de ejemplo con rol 'user'
+        for ($i = 1; $i <= 9; $i++) {
+            $user = User::factory()->create([
+                'name' => "usuario{$i}",
+                'email' => "user{$i}@user.com",
+                'password' => bcrypt('password'), // puedes cambiar la contraseña
+            ]);
+            $user->roles()->attach($userRole); // Asignar el rol de usuario al usuario
+        }
     }
 }

@@ -1,5 +1,6 @@
 <script>
     import { router } from "@inertiajs/svelte";
+    export let errors;
 
     // Definir los valores iniciales del formulario
     let values = {
@@ -9,14 +10,10 @@
         password_confirmation: "",
     };
 
-    let errors = {};
-
     // Manejo del submit del formulario
     function handleSubmit() {
         router.post("/register", values, {
-            onError: (error) => {
-                errors = error; // Capturar y mostrar los errores
-            },
+            onError: () => {},
             onSuccess: () => {},
         });
     }

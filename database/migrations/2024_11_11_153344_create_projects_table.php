@@ -12,17 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps("created_at");
+            $table->id()->autoIncrement();
+            $table->timestamps();
             $table->string("title");
-            $table->timestamp("last_updated");
-
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
 
         Schema::create('projects_invitations', function (Blueprint $table) {
-            $table->id();
-            $table->timestamp("created_at");
+            $table->id()->autoIncrement();
+            $table->timestamps();
             $table->enum('status', ['none', 'accepted', 'declined'])->default('none');
 
             $table->foreignId('project_id')->constrained("projects")->onDelete('cascade');
