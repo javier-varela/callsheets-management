@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\UserController;
 use Inertia\Inertia;
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -23,6 +24,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/dashboard/projects/{id}', [ProjectController::class, 'update'])->name('dashboard.projects.update');
 
     Route::delete('/dashboard/projects/{id}', [ProjectController::class, 'destroy'])->name('dashboard.projects.destroy');
+
+    Route::post('/dashboard/projects/invite', [ProjectController::class, 'invite'])->name('dashboard.projects.invite');
+});
+
+//api
+
+Route::middleware(['auth', "verified"])->group(function () {
+    Route::get('/api/users', [UserController::class, 'getAllUsers'])->name("api.users.show");
 });
 
 Route::get('/admin', function () {

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->foreignId('project_id')->constrained("projects")->onDelete('cascade');
 
             $table->foreignId('sender_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('invited_id')->constrained('users')->references("id")->onDelete('cascade');
         });
     }
 

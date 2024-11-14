@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProjectRepository
@@ -13,7 +14,19 @@ class ProjectRepository
      */
     public function getAllProjects()
     {
-        return DB::table('projects')->get();
+        return DB::table('projects')
+            ->join('projects_invitations', 'projects.id', '=', "projects_invitations.project_id")
+            ->select('projects.*', 'projects_invitations.*')
+            ->get();
+    }
+
+    public function getAllUserProjects($id)
+    {
+        return DB::table('projects')
+            ->where('user_id', $id)
+            ->join('projects_invitations', 'projects.id', '=', "projects_invitations.project_id")
+            ->select('projects.*', 'projects_invitations.*')
+            ->get();
     }
 
     /**

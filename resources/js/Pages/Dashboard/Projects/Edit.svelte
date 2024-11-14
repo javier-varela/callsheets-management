@@ -3,12 +3,14 @@
     import { onMount } from "svelte";
     export let errors;
 
+    export let project;
+    export let users;
+    console.log(users);
+
     // Definir los valores iniciales del formulario
     let values = {
         title: "",
     };
-
-    let users = [];
 
     // Manejo del submit del formulario
     function handleSubmit() {
@@ -21,7 +23,7 @@
 </script>
 
 <div class="container mx-auto p-6">
-    <h2 class="text-2xl font-bold mb-4">Crear Proyecto</h2>
+    <h2 class="text-2xl font-bold mb-4">Editar Proyecto</h2>
 
     <form on:submit|preventDefault={handleSubmit}>
         <div class="mb-4">

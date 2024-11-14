@@ -5,22 +5,28 @@ namespace App\Http\Controllers;
 
 use App\Services\ProjectService;
 use App\Services\ProjectInvitationService;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
     protected $projectService;
+    protected $projectInvitationService;
+    protected $userService;
 
-    public function __construct(ProjectService $projectService)
+
+    public function __construct(ProjectService $projectService, ProjectInvitationService $projectInvitationService, UserService $userService)
     {
         $this->projectService = $projectService;
+        $this->projectInvitationService = $projectInvitationService;
+        $this->userService = $userService;
     }
 
     // Mostrar todos los proyectos
     public function index()
     {
-        $projects = $this->projectService->getAllProjects();
+        $projects = $this->projectService->getAllUserProjects();
         return Inertia::render('Dashboard/Projects/Index', ['projects' => $projects]);
     }
 
@@ -28,7 +34,9 @@ class ProjectController extends Controller
     public function show($id)
     {
         $project = $this->projectService->getProjectById($id);
-        return Inertia::render('Dashboard/Projects/Show', ['project' => $project]);
+        $users = $this->userService->getUsersByRole("user");
+        $invitations = $this->projectInvitationService->getInvitationsByProjectId($id);
+        return Inertia::render('Dashboard/Projects/Show', ['project' => $project, 'users' => $users, 'invitations' => $invitations]);
     }
 
     // Mostrar el formulario para crear un proyecto
@@ -50,7 +58,8 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $project = $this->projectService->getProjectById($id);
-        return Inertia::render('Projects/Edit', ['project' => $project]);
+        $users = $this->userService->getUsersByRole("user");
+        return Inertia::render('Dashboard/Projects/Edit', ['project' => $project, 'users' => $users]);
     }
 
     // Actualizar un proyecto existente
@@ -72,5 +81,12 @@ class ProjectController extends Controller
     {
         $this->projectService->deleteProject($id);
         return redirect()->route('dashboard.projects');
+    }
+
+    public function invite(Request $request)
+    {
+        $response = $this->projectInvitationService->createInvitation($request);
+        $project_id = $request->input('project_id');
+        return redirect('/dashboard/projects/' + $project_id);
     }
 }

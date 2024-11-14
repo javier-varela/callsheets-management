@@ -20,6 +20,12 @@ class ProjectService
         return $this->projectRepository->getAllProjects();
     }
 
+
+    public function getAllUserProjects()
+    {
+        return $this->projectRepository->getAllUserProjects(Auth::id());
+    }
+
     public function getProjectById($id)
     {
         return $this->projectRepository->getProjectById($id);

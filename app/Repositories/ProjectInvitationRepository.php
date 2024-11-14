@@ -16,9 +16,18 @@ class ProjectInvitationRepository
         return DB::table('projects_invitations')->where('id', $id)->first();
     }
 
+    public function getInvitationsByProjectId($project_id)
+    {
+        return DB::table('projects_invitations')
+            ->where('project_id', $project_id)
+            ->join('users', 'projects_invitations.invited_id', '=', 'users.id')
+            ->select('projects_invitations.*', 'users.name as invited_name', 'users.email as invited_email')
+            ->get();
+    }
+
     public function createInvitation(array $data)
     {
-        return DB::table('projects_invitations')->insertGetId($data);
+        return DB::table('projects_invitations')->insert($data);
     }
 
     public function updateInvitation($id, array $data)
