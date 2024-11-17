@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProjectInvitationRepository
@@ -38,5 +39,17 @@ class ProjectInvitationRepository
     public function deleteInvitation($id)
     {
         return DB::table('projects_invitations')->where('id', $id)->delete();
+    }
+    public function getMyInvitations()
+    {
+        return DB::table('projects_invitations')
+            ->join('projects', 'projects_invitations.project_id', '=', 'projects.id')
+            ->where('projects_invitations.invited_id', Auth::id())
+            ->select(
+                'projects_invitations.*',
+                'projects.title as project_title', // Nombre del proyecto
+
+            )
+            ->get();
     }
 }

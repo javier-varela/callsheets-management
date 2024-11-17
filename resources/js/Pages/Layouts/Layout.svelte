@@ -1,11 +1,15 @@
 <script>
     import { inertia } from "@inertiajs/svelte";
     import Nav from "./Nav.svelte";
+    import FlashMessages from "./FlashMessages.svelte";
 
     export let auth;
+    export let flash;
 
     $: user = auth.user;
 </script>
+
+<FlashMessages {flash} />
 
 <Nav {user} />
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectInvitationController;
 use App\Http\Controllers\UserController;
 use Inertia\Inertia;
 
@@ -26,12 +27,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/dashboard/projects/{id}', [ProjectController::class, 'destroy'])->name('dashboard.projects.destroy');
 
     Route::post('/dashboard/projects/invite', [ProjectController::class, 'invite'])->name('dashboard.projects.invite');
+
+
+    Route::get('/dashboard/invitations', [ProjectInvitationController::class, 'getMyInvitations'])->name('dashboard.invitations');
+    Route::post('/dashboard/invitations/accept/{invitation_id}', [ProjectInvitationController::class, 'accept'])->name('dashboard.invitations.accept');
+    Route::post('/dashboard/invitations/decline/{invitation_id}', [ProjectInvitationController::class, 'decline'])->name('dashboard.invitations.decline');
 });
 
 //api
 
 Route::middleware(['auth', "verified"])->group(function () {
-    Route::get('/api/users', [UserController::class, 'getAllUsers'])->name("api.users.show");
+    Route::get('/api/users_to_invite/{project_id}', [UserController::class, 'getSelectUsersToInvite'])->name("api.users_to_invite.show");
 });
 
 Route::get('/admin', function () {

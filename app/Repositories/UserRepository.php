@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserRepository
 {
@@ -41,5 +43,26 @@ class UserRepository
     public function hasRole(User $user, $roleName)
     {
         return $user->roles()->where('name', $roleName)->exists();
+    }
+
+    public function getSelectUsersToInvite(int $project_id)
+    {
+
+        $authUserId = Auth::id();
+
+        return DB::table('users')
+            ->join('role_user', 'users.id', '=', 'role_user.user_id')
+            ->join('roles', function ($join) {
+                $join->on('role_user.role_id', '=', 'roles.id')
+                    ->where('roles.name', '=', 'user');  // Filtra solo los usuarios con rol "user"
+            })
+            ->leftJoin('projects_invitations', function ($join) use ($project_id) {
+                $join->on('users.id', '=', 'projects_invitations.invited_id')
+                    ->where('projects_invitations.project_id', '=', $project_id);
+            })
+            ->whereNull('projects_invitations.invited_id')  // Usuarios que no están invitados al proyecto
+            ->where('users.id', '!=', $authUserId)  // Excluir al usuario autenticado
+            ->select('users.*')
+            ->get();
     }
 }

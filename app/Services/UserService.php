@@ -43,4 +43,9 @@ class UserService
     {
         return $this->userRepository->hasRole($user, $roleName);
     }
+
+    public function getSelectUsersToInvite(int $project_id)
+    {
+        return $this->userRepository->getSelectUsersToInvite($project_id);
+    }
 }

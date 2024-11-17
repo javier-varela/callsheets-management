@@ -23,9 +23,7 @@ class ProjectRepository
     public function getAllUserProjects($id)
     {
         return DB::table('projects')
-            ->where('user_id', $id)
-            ->join('projects_invitations', 'projects.id', '=', "projects_invitations.project_id")
-            ->select('projects.*', 'projects_invitations.*')
+            ->where('projects.user_id', $id)
             ->get();
     }
 

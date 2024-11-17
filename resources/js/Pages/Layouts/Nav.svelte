@@ -29,7 +29,12 @@
                     >
                         <li>
                             <a href="/dashboard/projects" use:inertia
-                                >Projects</a
+                                >Proyectos</a
+                            >
+                        </li>
+                        <li>
+                            <a href="/dashboard/invitations" use:inertia
+                                >Invitaciones</a
                             >
                         </li>
                     </ul>

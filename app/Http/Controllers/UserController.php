@@ -12,4 +12,9 @@ class UserController extends Controller
     {
         $this->userService = $userService;
     }
+
+    public function getSelectUsersToInvite(int $project_id)
+    {
+        return $this->userService->getSelectUsersToInvite($project_id);
+    }
 }

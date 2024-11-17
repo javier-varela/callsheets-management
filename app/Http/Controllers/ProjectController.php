@@ -34,9 +34,9 @@ class ProjectController extends Controller
     public function show($id)
     {
         $project = $this->projectService->getProjectById($id);
-        $users = $this->userService->getUsersByRole("user");
+        $users_to_invite = $this->userService->getUsersByRole("user");
         $invitations = $this->projectInvitationService->getInvitationsByProjectId($id);
-        return Inertia::render('Dashboard/Projects/Show', ['project' => $project, 'users' => $users, 'invitations' => $invitations]);
+        return Inertia::render('Dashboard/Projects/Show', ['project' => $project, 'users' => $users_to_invite, 'invitations' => $invitations]);
     }
 
     // Mostrar el formulario para crear un proyecto
@@ -85,8 +85,8 @@ class ProjectController extends Controller
 
     public function invite(Request $request)
     {
-        $response = $this->projectInvitationService->createInvitation($request);
+        $this->projectInvitationService->createInvitation($request);
         $project_id = $request->input('project_id');
-        return redirect('/dashboard/projects/' + $project_id);
+        return redirect('/dashboard/projects/' . $project_id);
     }
 }

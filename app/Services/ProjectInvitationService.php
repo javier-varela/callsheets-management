@@ -31,6 +31,7 @@ class ProjectInvitationService
 
     public function createInvitation(Request $request)
     {
+
         $user_ids = $request->input('user_ids');
         $project_id = $request->input('project_id');
         $sender_id =  Auth::id();
@@ -59,5 +60,9 @@ class ProjectInvitationService
     public function deleteInvitation($id)
     {
         return $this->projectInvitationRepository->deleteInvitation($id);
+    }
+    public function getMyInvitations()
+    {
+        return $this->projectInvitationRepository->getMyInvitations();
     }
 }
