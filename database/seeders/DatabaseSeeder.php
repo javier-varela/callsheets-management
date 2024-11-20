@@ -38,5 +38,7 @@ class DatabaseSeeder extends Seeder
             ]);
             $user->roles()->attach($userRole); // Asignar el rol de usuario al usuario
         }
+
+        $this->call(ProjectsRolesSeeder::class);
     }
 }

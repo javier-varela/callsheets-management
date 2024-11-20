@@ -9,6 +9,8 @@ use App\Repositories\UserRepository;
 use App\Services\ProjectService;
 use App\Services\ProjectInvitationService;
 use App\Services\UserService;
+use App\Services\ProjectAssignmentService;
+use App\Repositories\ProjectAssignmentRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserRepository::class, function ($app) {
             return new UserRepository();
         });
+        $this->app->bind(ProjectAssignmentRepository::class, function ($app) {
+            return new ProjectAssignmentRepository();
+        });
 
         //Services
 
@@ -41,6 +46,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(UserService::class, function ($app) {
             return new UserService($app->make(UserRepository::class));
+        });
+        $this->app->bind(ProjectAssignmentService::class, function ($app) {
+            return new ProjectAssignmentService($app->make(ProjectAssignmentRepository::class));
         });
     }
 

@@ -28,6 +28,24 @@ return new class extends Migration
             $table->foreignId('sender_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('invited_id')->constrained('users')->references("id")->onDelete('cascade');
         });
+
+        // Roles Table
+        Schema::create('projects_roles', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->string('name')->unique();
+            $table->index('name', 'name_index');
+        });
+
+        // Assignments Table
+        Schema::create('projects_assignments', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->string('nick_name');
+            $table->foreignId('role_name')->constrained('projects_roles', 'name', 'name_index')->onDelete('cascade');
+            $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+        });
     }
 
     /**
@@ -35,7 +53,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('projects_assignments');
+        Schema::dropIfExists('projects_roles');
         Schema::dropIfExists('projects_invitations');
+        Schema::dropIfExists('projects');
     }
 };

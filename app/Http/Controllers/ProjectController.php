@@ -82,11 +82,4 @@ class ProjectController extends Controller
         $this->projectService->deleteProject($id);
         return redirect()->route('dashboard.projects');
     }
-
-    public function invite(Request $request)
-    {
-        $this->projectInvitationService->createInvitation($request);
-        $project_id = $request->input('project_id');
-        return redirect('/dashboard/projects/' . $project_id);
-    }
 }

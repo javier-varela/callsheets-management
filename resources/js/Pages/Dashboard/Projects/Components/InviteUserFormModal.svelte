@@ -57,7 +57,7 @@
 
 <!-- Modal -->
 <div class="modal">
-    <div class="modal-box text-white">
+    <div class="modal-box">
         <h3 class="text-lg font-bold">Invitar Usuarios</h3>
 
         <div class="form-control my-4">

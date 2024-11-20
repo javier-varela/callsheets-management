@@ -26,11 +26,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::delete('/dashboard/projects/{id}', [ProjectController::class, 'destroy'])->name('dashboard.projects.destroy');
 
-    Route::post('/dashboard/projects/invite', [ProjectController::class, 'invite'])->name('dashboard.projects.invite');
+    Route::post('/dashboard/projects/invite', [ProjectInvitationController::class, 'invite'])->name('dashboard.projects.invite');
 
 
     Route::get('/dashboard/invitations', [ProjectInvitationController::class, 'getMyInvitations'])->name('dashboard.invitations');
-    Route::post('/dashboard/invitations/accept/{invitation_id}', [ProjectInvitationController::class, 'accept'])->name('dashboard.invitations.accept');
+    Route::post('/dashboard/invitations/accept', [ProjectInvitationController::class, 'accept'])->name('dashboard.invitations.accept');
     Route::post('/dashboard/invitations/decline/{invitation_id}', [ProjectInvitationController::class, 'decline'])->name('dashboard.invitations.decline');
 });
 

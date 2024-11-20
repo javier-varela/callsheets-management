@@ -9,7 +9,7 @@
     };
 </script>
 
-<div class="card bg-base-200 p-4 shadow-md text-white">
+<div class="card bg-base-200 p-4 shadow-md">
     <h3 class="text-lg font-semibold">{invitation.project_title}</h3>
     <p class="text-sm">Fecha de invitación: {invitation.created_at}</p>
 
@@ -24,10 +24,12 @@
     <div class="mt-4 flex gap-4">
         <button
             use:inertia={{
-                href: `/dashboard/invitations/accept/${invitation.id}`,
+                href: `/dashboard/invitations/accept`,
                 method: "post",
                 data: {
+                    project_id: invitation.project_id,
                     invitation_id: invitation.id,
+                    invited_id: invitation.invited_id,
                 },
             }}
             class="btn btn-success"
