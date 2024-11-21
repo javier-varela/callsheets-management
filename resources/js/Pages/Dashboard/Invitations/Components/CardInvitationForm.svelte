@@ -3,13 +3,13 @@
     export let invitation;
     // Definimos los estilos del badge según el estado
     const statusClasses = {
-        none: "bg-gray-400 text-white", // Estado "pendiente"
-        accepted: "bg-green-500 text-white", // Estado "aceptado"
-        declined: "bg-red-500 text-white", // Estado "rechazado"
+        none: "bg-gray-400", // Estado "pendiente"
+        accepted: "bg-green-500", // Estado "aceptado"
+        declined: "bg-red-500", // Estado "rechazado"
     };
 </script>
 
-<div class="card bg-base-200 p-4 shadow-md">
+<div class="card p-4 shadow hover:shadow-md border-gray-50">
     <h3 class="text-lg font-semibold">{invitation.project_title}</h3>
     <p class="text-sm">Fecha de invitación: {invitation.created_at}</p>
 

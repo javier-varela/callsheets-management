@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\ProjectRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ProjectService
 {
@@ -28,8 +29,11 @@ class ProjectService
 
     public function getProjectById($id)
     {
-        return $this->projectRepository->getProjectById($id);
+        $project = $this->projectRepository->getProjectById($id);
+
+        return $project;
     }
+
 
     public function createProject(Request $request)
 
@@ -50,5 +54,17 @@ class ProjectService
     public function deleteProject($id)
     {
         return $this->projectRepository->deleteProject($id);
+    }
+
+
+    public function getAllParticipateProjects()
+    {
+        return $this->projectRepository->getAllParticipateProjects(Auth::id());
+    }
+
+    public function isOwner($projectId, $userId)
+    {
+        $project = $this->projectRepository->getProjectById($projectId);
+        return $project && $project->user_id === $userId;
     }
 }

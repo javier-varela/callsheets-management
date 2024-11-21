@@ -3,36 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\ProjectInvitationController;
+
 use App\Http\Controllers\UserController;
 use Inertia\Inertia;
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-
-    Route::get('/dashboard/projects', [ProjectController::class, 'index'])->name('dashboard.projects');
-
-    Route::get('/dashboard/projects/create', [ProjectController::class, 'create'])->name('dashboard.projects.create');
-
-    Route::get('/dashboard/projects/{id}', [ProjectController::class, 'show'])->name('dashboard.projects.show');
-
-    Route::post('/dashboard/projects', [ProjectController::class, 'store'])->name('dashboard.projects.store');
-
-    Route::get('/dashboard/projects/{id}/edit', [ProjectController::class, 'edit'])->name('dashboard.projects.edit');
-    Route::put('/dashboard/projects/{id}', [ProjectController::class, 'update'])->name('dashboard.projects.update');
-
-    Route::delete('/dashboard/projects/{id}', [ProjectController::class, 'destroy'])->name('dashboard.projects.destroy');
-
-    Route::post('/dashboard/projects/invite', [ProjectInvitationController::class, 'invite'])->name('dashboard.projects.invite');
-
-
-    Route::get('/dashboard/invitations', [ProjectInvitationController::class, 'getMyInvitations'])->name('dashboard.invitations');
-    Route::post('/dashboard/invitations/accept', [ProjectInvitationController::class, 'accept'])->name('dashboard.invitations.accept');
-    Route::post('/dashboard/invitations/decline/{invitation_id}', [ProjectInvitationController::class, 'decline'])->name('dashboard.invitations.decline');
-});
 
 //api
 
@@ -55,3 +29,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/dashboard.php';

@@ -84,4 +84,15 @@ class ProjectRepository
             ->where('project_id', $projectId)
             ->get();
     }
+
+    public function getAllParticipateProjects($user_id)
+    {
+        return DB::table('projects')
+            ->join('projects_assignments', 'projects.id', '=', 'projects_assignments.project_id')
+            ->join('users', 'users.id', '=', 'projects.user_id')
+            ->where('projects_assignments.user_id', $user_id)
+            ->select(['projects.*', 'projects_assignments.*', 'users.name as owner_name'])
+            ->distinct()
+            ->get();
+    }
 }

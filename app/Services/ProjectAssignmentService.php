@@ -67,4 +67,10 @@ class ProjectAssignmentService
     {
         return $this->repository->deleteAssignment($id);
     }
+
+
+    public function getAssignmentsByProjectId($project_id)
+    {
+        return $this->repository->getAssignmentsByProjectId($project_id);
+    }
 }

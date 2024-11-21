@@ -41,7 +41,7 @@ return new class extends Migration
         Schema::create('projects_assignments', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('nick_name');
+            $table->string('nick_name')->nullable();
             $table->foreignId('role_name')->constrained('projects_roles', 'name', 'name_index')->onDelete('cascade');
             $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');

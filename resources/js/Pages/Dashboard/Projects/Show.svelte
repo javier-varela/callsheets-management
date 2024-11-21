@@ -3,20 +3,21 @@
     import CardInvitation from "./Components/CardInvitation.svelte";
     export let project;
     export let invitations;
+    export let assignments;
 </script>
 
 <div class="my-4">
-    <h2 class="text-2xl font-bold mb-4">Invitaciones</h2>
+    <div class="divider">Invitaciones</div>
 
     {#if invitations && invitations.length > 0}
-        <div class="grid gap-4 text-white">
+        <div class="grid gap-4">
             {#each invitations as invitation}
                 <!-- Card para cada invitación -->
                 <CardInvitation {invitation} />
             {/each}
         </div>
     {:else}
-        <p class="text-gray-500">No hay invitaciones para este proyecto.</p>
+        <p class="">No hay invitaciones para este proyecto.</p>
     {/if}
 </div>
 <InviteUserFormModal

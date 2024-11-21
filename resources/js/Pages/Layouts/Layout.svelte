@@ -13,9 +13,7 @@
 
 <Nav {user} />
 
-<div
-    class="min-h-screen flex flex-col sm:justify-center items-center px-10 pt-6 sm:pt-0 bg-gray-100 font-sans text-gray-900 antialiased"
->
+<div class="flex flex-col px-10 pt-6 sm:pt-0 bg-slate-50 font-sans antialiased">
     <div>
         <a href="/">
             <!-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> -->
@@ -23,7 +21,7 @@
     </div>
 
     <div
-        class="w-full mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"
+        class="w-full mt-6 px-6 py-4 bg-white shadow-md h-full overflow-hidden"
     >
         <slot><!-- optional fallback --></slot>
     </div>

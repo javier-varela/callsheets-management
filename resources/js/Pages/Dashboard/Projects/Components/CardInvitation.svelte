@@ -1,13 +1,13 @@
 <script>
     export let invitation;
     const statusClasses = {
-        none: "bg-gray-400 text-white", // Estado "pendiente"
-        accepted: "bg-green-500 text-white", // Estado "aceptado"
-        declined: "bg-red-500 text-white", // Estado "rechazado"
+        none: "bg-gray-400 ", // Estado "pendiente"
+        accepted: "bg-green-500 ", // Estado "aceptado"
+        declined: "bg-red-500 ", // Estado "rechazado"
     };
 </script>
 
-<div class="card bg-base-200 p-4 shadow-md">
+<div class="card shadow-md">
     <div class="card-body">
         <h3 class="card-title">{invitation.invited_name}</h3>
         <p>Email: {invitation.invited_email}</p>

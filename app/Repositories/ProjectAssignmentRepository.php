@@ -64,4 +64,18 @@ class ProjectAssignmentRepository
             ->where('id', $id)
             ->delete();
     }
+
+    public function getAssingmentsByUserId($id)
+    {
+        return DB::table('projects_assignments')
+            ->where('user_id', $id)
+            ->get();
+    }
+
+    public function getAssignmentsByProjectId($project_id)
+    {
+        return DB::table('projects_assignments')
+            ->where('project_id', $project_id)
+            ->get();
+    }
 }

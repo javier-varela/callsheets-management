@@ -27,9 +27,7 @@
 
     <form on:submit|preventDefault={handleSubmit}>
         <div class="mb-4">
-            <label for="title" class="block text-sm font-medium text-gray-700"
-                >Título</label
-            >
+            <h3 for="title" class="block text-sm font-medium">Título</h3>
             <input
                 id="title"
                 type="text"
@@ -45,7 +43,7 @@
 
         <button
             type="submit"
-            class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            class="w-full py-2 px-4 bg-blue-500 rounded-md hover:bg-blue-600"
         >
             Crear Proyecto
         </button>

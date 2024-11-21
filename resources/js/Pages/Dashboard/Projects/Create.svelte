@@ -1,6 +1,5 @@
 <script>
     import { router } from "@inertiajs/svelte";
-    import { onMount } from "svelte";
     export let errors;
 
     // Definir los valores iniciales del formulario
@@ -20,14 +19,12 @@
     }
 </script>
 
-<div class="container mx-auto p-6">
+<div class=" mx-auto p-6">
     <h2 class="text-2xl font-bold mb-4">Crear Proyecto</h2>
 
     <form on:submit|preventDefault={handleSubmit}>
         <div class="mb-4">
-            <label for="title" class="block text-sm font-medium text-gray-700"
-                >Título</label
-            >
+            <label for="title" class="block text-sm font-medium">Título</label>
             <input
                 id="title"
                 type="text"
@@ -41,10 +38,7 @@
             {/if}
         </div>
 
-        <button
-            type="submit"
-            class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-        >
+        <button type="submit" class="btn w-full btn-active">
             Crear Proyecto
         </button>
     </form>
