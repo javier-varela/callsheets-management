@@ -16,7 +16,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Agrupamos las rutas de proyectos
     Route::prefix('dashboard/projects')->name('dashboard.projects.')->group(function () {
         // Rutas sin validación de propietario
-        Route::get('/', [ProjectController::class, 'index'])->name('index');
+        Route::get('/my-projects', [ProjectController::class, 'index'])->name('index');
+        Route::get('/other-projects', [ProjectController::class, 'otherProjects'])->name('otherprojects');
         Route::get('/create', [ProjectController::class, 'create'])->name('create');
         Route::post('/', [ProjectController::class, 'store'])->name('store');
 

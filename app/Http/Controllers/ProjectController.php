@@ -35,9 +35,15 @@ class ProjectController extends Controller
     // Mostrar todos los proyectos
     public function index()
     {
-        $projects = $this->projectService->getAllUserProjects();
-        $colaborate_projects = $this->projectService->getAllParticipateProjects();
-        return Inertia::render('Dashboard/Projects/Index', ['projects' => $projects, 'colaborate_projects' => $colaborate_projects]);
+        $data = $this->projectService->getAllUserProjects();
+        return Inertia::render('Dashboard/Projects/Index', ['data' => $data]);
+    }
+
+    public function otherProjects()
+    {
+
+        $data = $this->projectService->getAllParticipateProjects();
+        return Inertia::render('Dashboard/Projects/OtherProjects', ['data' => $data]);
     }
 
     public function show($id)
@@ -57,7 +63,7 @@ class ProjectController extends Controller
             'project' => $project,
             'users' => $users_to_invite,
             'invitations' => $invitations,
-            'assignments' => $assignments
+            'participants' => $assignments
         ]);
     }
 
@@ -73,7 +79,7 @@ class ProjectController extends Controller
 
         $this->projectService->createProject($request);
 
-        return redirect()->route('dashboard.projects');
+        return redirect()->route('dashboard.projects.index');
     }
 
     // Mostrar el formulario para editar un proyecto
@@ -95,13 +101,13 @@ class ProjectController extends Controller
 
         $this->projectService->updateProject($id, $data);
 
-        return redirect()->route('dashboard.projects');
+        return redirect()->route('dashboard.projects.index');
     }
 
     // Eliminar un proyecto
     public function destroy($id)
     {
         $this->projectService->deleteProject($id);
-        return redirect()->route('dashboard.projects');
+        return redirect()->route('dashboard.projects.index');
     }
 }

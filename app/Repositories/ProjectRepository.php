@@ -24,7 +24,7 @@ class ProjectRepository
     {
         return DB::table('projects')
             ->where('projects.user_id', $id)
-            ->get();
+            ->paginate(10);
     }
 
     /**
@@ -93,6 +93,6 @@ class ProjectRepository
             ->where('projects_assignments.user_id', $user_id)
             ->select(['projects.*', 'projects_assignments.*', 'users.name as owner_name'])
             ->distinct()
-            ->get();
+            ->paginate(10);
     }
 }

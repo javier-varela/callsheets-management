@@ -75,7 +75,12 @@ class ProjectAssignmentRepository
     public function getAssignmentsByProjectId($project_id)
     {
         return DB::table('projects_assignments')
-            ->where('project_id', $project_id)
+            ->join('users', 'projects_assignments.user_id', '=', 'users.id')
+            ->select(
+                'projects_assignments.*',
+                'users.name as user_name'
+            )
+            ->where('projects_assignments.project_id', $project_id)
             ->get();
     }
 }

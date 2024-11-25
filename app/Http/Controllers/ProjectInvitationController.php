@@ -33,7 +33,9 @@ class ProjectInvitationController extends Controller
         $this->projectAssignmentsService->createAssignment([
             'project_id' => $request->input('project_id'),
             'role_name' => 'None',
-            'user_id' => $request->input('invited_id')
+            'user_id' => $request->input('invited_id'),
+            'created_at' => now()->toDateTimeString(),
+            'updated_at' => now()->toDateTimeString(),
         ]);
         return redirect()->route('dashboard.invitations')->with('success', 'mensaje');
     }

@@ -106,12 +106,14 @@
                 </div>
             {/if}
         </div>
-
-        <form on:submit|preventDefault={sendInvitations}>
-            <button class="btn btn-success w-full mt-4" type="submit">
-                Enviar Invitaciones
-            </button>
-        </form>
+        <div class="modal-action">
+            <form on:submit|preventDefault={sendInvitations}>
+                <button class="btn btn-success" type="submit">
+                    Enviar Invitaciones
+                </button>
+            </form>
+            <label for="invite_modal" class="btn btn-warning">Close!</label>
+        </div>
     </div>
 
     <!-- Botón para cerrar el modal -->

@@ -1,24 +1,20 @@
 <script>
     import CardProject from "./Components/CardProject.svelte";
-    import CardColaborateProject from "./Components/CardColaborateProject.svelte";
+    import Pagination from "../../Layouts/Pagination.svelte";
     import { inertia } from "@inertiajs/svelte";
-    export let projects;
-    export let colaborate_projects;
-    console.log(colaborate_projects);
+    export let data;
+    $: projects = data.data;
+    $: links = data.links;
 </script>
 
-<h1 class="">Mis Proyectos</h1>
-<a href="/dashboard/projects/create" use:inertia class="btn">Crear Proyecto</a>
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
-    {#each projects as project}
+<h1>Mis Proyectos</h1>
+<a href="/dashboard/projects/create" use:inertia class="btn mt-4">
+    Crear Proyecto
+</a>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 w-full mt-4">
+    {#each data.data as project}
         <CardProject {project} />
     {/each}
 </div>
-{#if colaborate_projects}
-    <div class="divider">Otros Proyectos</div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
-        {#each colaborate_projects as project}
-            <CardColaborateProject {project} />
-        {/each}
-    </div>
-{/if}
+
+<Pagination {links} />
