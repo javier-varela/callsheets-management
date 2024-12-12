@@ -73,4 +73,18 @@ class ProjectAssignmentService
     {
         return $this->repository->getAssignmentsByProjectId($project_id);
     }
+
+    public function getAssignmentsWithRoleByProjectId($project_id)
+    {
+        return $this->repository->getAssignmentsWithRoleByProjectId($project_id);
+    }
+    public function getAssignmentsByProjectIdUserId($project_id, $user_id)
+    {
+        return $this->repository->getAssignmentsByProjectIdUserId($project_id, $user_id);
+    }
+
+    public function deleteAssigmentsByUserId($user_id, $project_id)
+    {
+        return $this->repository->deleteAssigmentsByUserId($user_id, $project_id);
+    }
 }

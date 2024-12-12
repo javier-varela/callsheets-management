@@ -34,7 +34,6 @@ class ProjectsRolesSeeder extends Seeder
             'Storyboard Artist',
             'Set Designer',
             'Colorist',
-            'None'
         ];
 
         foreach ($roles as $role) {

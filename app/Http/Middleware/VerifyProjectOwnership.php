@@ -17,15 +17,17 @@ class VerifyProjectOwnership
 
     public function handle($request, Closure $next)
     {
-        $projectId = $request->route('id');
-        $userId = Auth::id();
+        // $projectId = $request->route('id');
+        // $userId = Auth::id();
+        // $project = $this->projectService->getProjectById($projectId);
 
-        // Verifica si el proyecto pertenece al usuario autenticado
-        if (!$this->projectService->isOwner($projectId, $userId)) {
-            return redirect()
-                ->route('dashboard.projects.index')
-                ->with('warning', 'No tienes permiso para acceder a este proyecto.');
-        }
+
+        // // Verifica si el proyecto pertenece al usuario autenticado
+        // if (!($project && $project->user_id === $userId)) {
+        //     return redirect()
+        //         ->route('dashboard.projects.index')
+        //         ->with('warning', 'No tienes los permisos necesarios'); //dashboard.projects.admin.index
+        // }
 
         return $next($request);
     }

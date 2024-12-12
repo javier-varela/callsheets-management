@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Support\Facades\DB;
 
-class ProjectsRolesRepository
+class ProjectRoleRepository
 {
     /**
      * Obtiene todos los roles de la tabla.

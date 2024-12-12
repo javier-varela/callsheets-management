@@ -13,13 +13,16 @@
 
 <Nav {user} />
 
-<div class="flex flex-col px-10 pt-6 sm:pt-0 bg-slate-50 font-sans antialiased">
-    <div>
-        <a href="/">
-            <!-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> -->
-        </a>
-    </div>
-
+<div class="flex flex-col pt-6 sm:pt-0 bg-slate-50 font-sans">
+    <aside>
+        <nav>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </nav>
+    </aside>
     <div
         class="w-full mt-6 px-6 py-4 bg-white shadow-md h-full overflow-hidden"
     >

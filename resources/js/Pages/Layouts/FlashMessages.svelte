@@ -6,7 +6,7 @@
 {#if flash.warning}
     <div
         role="alert"
-        class="alert alert-warning absolute w-full bottom-0 left-0"
+        class="alert alert-warning absolute w-full bottom-0 left-0 z-50"
     >
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,10 @@
         <button class="btn btn-ghost" on:click={reload}> Cerrar</button>
     </div>
 {:else if flash.error}
-    <div role="alert" class="alert alert-error absolute w-full bottom-0 left-0">
+    <div
+        role="alert"
+        class="alert alert-error absolute w-full bottom-0 left-0 z-50"
+    >
         <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6 shrink-0 stroke-current"
@@ -43,7 +46,7 @@
         <button class="btn btn-ghost" on:click={reload}> Cerrar</button>
     </div>
 {:else if flash.success}
-    <div role="alert" class="alert alert-success absolute bottom-0 left-0">
+    <div role="alert" class="alert alert-success absolute bottom-0 left-0 z-50">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6 shrink-0 stroke-current"

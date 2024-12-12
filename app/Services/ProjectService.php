@@ -61,10 +61,4 @@ class ProjectService
     {
         return $this->projectRepository->getAllParticipateProjects(Auth::id());
     }
-
-    public function isOwner($projectId, $userId)
-    {
-        $project = $this->projectRepository->getProjectById($projectId);
-        return $project && $project->user_id === $userId;
-    }
 }

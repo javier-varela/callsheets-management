@@ -6,7 +6,6 @@
     export let project_id;
     let invitedUsers = [];
     let selectedUserId;
-    const dispatch = createEventDispatcher();
     let modalOpen = false;
 
     async function getUsers() {
@@ -34,12 +33,10 @@
         };
         router.post("/dashboard/projects/invite", data, {
             onSuccess: () => {
-                dispatch("invitationsSent", { success: true });
                 modalOpen = false; // Cerrar modal al éxito
+                invitedUsers = [];
             },
-            onError: (errors) => {
-                dispatch("invitationsSent", { success: false, errors: errors });
-            },
+            onError: (errors) => {},
         });
     }
 </script>

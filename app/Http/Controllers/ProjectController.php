@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\ProjectAssignmentService;
 use App\Services\ProjectService;
 use App\Services\ProjectInvitationService;
+use App\Services\ProjectRoleAssignmentService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,6 @@ class ProjectController extends Controller
     protected $projectInvitationService;
     protected $userService;
     protected $projectAssignmentService;
-
 
     public function __construct(
         ProjectService $projectService,
@@ -46,20 +46,28 @@ class ProjectController extends Controller
         return Inertia::render('Dashboard/Projects/OtherProjects', ['data' => $data]);
     }
 
-    public function show($id)
+    public function showAdmin($project_id)
     {
-        //validar si es dueno
-        if (!$this->projectService->isOwner($id, Auth::id())) {
-            return redirect()
-                ->route('dashboard.projects')
-                ->with('warning', '');
-        }
 
+        $project = $this->projectService->getProjectById($project_id);
+        $invitations = $this->projectInvitationService->getInvitationsByProjectId($project_id);
+        $participants = $this->projectAssignmentService->getAssignmentsByProjectId($project_id);
+
+
+        return Inertia::render('Dashboard/Projects/Admin/Show', [
+            'project' => $project,
+            'invitations' => $invitations,
+            'participants' => $participants
+        ]);
+    }
+
+    public function showGuest($id)
+    {
         $project = $this->projectService->getProjectById($id);
         $users_to_invite = $this->userService->getUsersByRole("user");
         $invitations = $this->projectInvitationService->getInvitationsByProjectId($id);
         $assignments = $this->projectAssignmentService->getAssignmentsByProjectId($id);
-        return Inertia::render('Dashboard/Projects/Show', [
+        return Inertia::render('Dashboard/Projects/Guest/Show', [
             'project' => $project,
             'users' => $users_to_invite,
             'invitations' => $invitations,
@@ -109,5 +117,11 @@ class ProjectController extends Controller
     {
         $this->projectService->deleteProject($id);
         return redirect()->route('dashboard.projects.index');
+    }
+
+    public function deleteAssigmentsByUserId($user_id, $project_id)
+    {
+        $this->projectAssignmentService->deleteAssigmentsByUserId($user_id, $project_id);
+        return redirect()->route('dashboard.projects.admin.show')->with('project_id', $project_id);
     }
 }

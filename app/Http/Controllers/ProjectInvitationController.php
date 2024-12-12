@@ -32,24 +32,27 @@ class ProjectInvitationController extends Controller
 
         $this->projectAssignmentsService->createAssignment([
             'project_id' => $request->input('project_id'),
-            'role_name' => 'None',
             'user_id' => $request->input('invited_id'),
             'created_at' => now()->toDateTimeString(),
             'updated_at' => now()->toDateTimeString(),
         ]);
-        return redirect()->route('dashboard.invitations')->with('success', 'mensaje');
+        return redirect()
+            ->route('dashboard.invitations.index')
+            ->with('success', 'mensaje');
     }
 
     public function invite(Request $request)
     {
         $this->projectInvitationService->createInvitation($request);
         $project_id = $request->input('project_id');
-        return redirect('/dashboard/projects/' . $project_id);
+        return redirect()
+            ->route('dashboard.projects.admin.show', ['project_id' => $project_id])
+            ->with('succes', 'invitaciones creadas');
     }
 
     public function decline(int $invitation_id)
     {
         $this->projectInvitationService->updateInvitation($invitation_id, ['status' => 'declined']);
-        return redirect()->route('dashboard.invitations')->with('success', 'Invitacion rechazada');
+        return redirect()->route('dashboard.invitations.index')->with('success', 'Invitacion rechazada');
     }
 }

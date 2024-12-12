@@ -5,7 +5,7 @@
 
 <a
     use:inertia
-    href="/dashboard/projects/{project.id}"
+    href="/dashboard/projects/guest/{project.id}"
     class="card w-full bg-white shadow rounded-lg border-gray-50 hover:shadow-md"
 >
     <div class="card-body">

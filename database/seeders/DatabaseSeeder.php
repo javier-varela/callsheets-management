@@ -40,5 +40,10 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call(ProjectsRolesSeeder::class);
+        // $this->call(ProjectSeeder::class);
+        // $this->call(AssignmentsSeeder::class);
+        // $this->call(CallsheetsSeeder::class);
+        // $this->call(CallsheetCastSeeder::class);
+        // $this->call(EventCastSeeder::class);
     }
 }

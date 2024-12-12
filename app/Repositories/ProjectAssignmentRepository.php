@@ -24,7 +24,12 @@ class ProjectAssignmentRepository
      */
     public function getAssignmentById($id)
     {
-        return DB::table('projects_assignments')->find($id);
+        return DB::table('projects_assignments')
+            ->join('users', 'projects_assignments.user_id', '=', 'users.id')
+            ->join('projects', 'projects_assignments.project_id', '=', 'projects.id')
+            ->where('projects_assignments.id', $id)
+            ->select()
+            ->first();
     }
 
     /**
@@ -65,22 +70,64 @@ class ProjectAssignmentRepository
             ->delete();
     }
 
-    public function getAssingmentsByUserId($id)
+    public function getAssignmentByUserId($id)
     {
-        return DB::table('projects_assignments')
+        return DB::table('projects_assignments as pa')
+            ->leftJoin('projects_roles as pr', 'pa.project_role_id', '=', 'pr.id')
             ->where('user_id', $id)
             ->get();
     }
-
     public function getAssignmentsByProjectId($project_id)
     {
+        return DB::table('projects_assignments as pa')
+            ->join('users', 'pa.user_id', '=', 'users.id')
+            ->leftJoin('projects_roles_assignments as pra', 'pa.id', '=', 'pra.project_assignment_id')
+            ->leftJoin('projects_roles as pr', 'pra.project_role_id', '=', 'pr.id') // Corrige la unión para roles
+            ->select(
+                'pa.id as project_assigment_id',
+                'users.name as user_name',
+                'users.id as user_id',
+                DB::raw('GROUP_CONCAT(pr.name) as roles') // Compatible con SQLite
+            )
+            ->where('pa.project_id', $project_id)
+            ->groupBy('users.id', 'users.name') // Agrupa por usuario
+            ->get();
+    }
+
+    public function getAssignmentsWithRoleByProjectId($project_id)
+    {
+
         return DB::table('projects_assignments')
             ->join('users', 'projects_assignments.user_id', '=', 'users.id')
+            ->join('projects_roles_assignments as pra', 'projects_assignments.id', '=', 'pra.project_assignment_id')
+            ->join('projects_roles as pr', 'pra.project_role_id', '=', 'pr.id')
             ->select(
-                'projects_assignments.*',
-                'users.name as user_name'
+                'pra.id as pra_id',
+                'users.id as user_id',
+                'users.name as user_name',
+                'pr.name as role_name',
+                'pr.id as role_id'
             )
             ->where('projects_assignments.project_id', $project_id)
+            ->distinct()
+            ->get();
+    }
+
+
+
+    public function deleteAssigmentsByUserId($user_id, $project_id)
+    {
+        return DB::table('projects_assignments')
+            ->where('projects_assignments.user_id', '=', $user_id)
+            ->where('projects_assignments.project_id', '=', $project_id)
+            ->delete();
+    }
+
+    public function getAssignmentsByProjectIdUserId($project_id, $user_id)
+    {
+        return DB::table('projects_assignments')
+            ->where('projects_assignments.user_id', '=', $user_id)
+            ->where('projects_assignments.project_id', '=', $project_id)
             ->get();
     }
 }
