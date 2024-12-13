@@ -19,6 +19,11 @@
         class="btn"
         href="/dashboard/projects/admin/stats/{project.id}">Stats</a
     >
+    <a
+        use:inertia
+        class="btn"
+        href="/dashboard/projects/admin/report/{project.id}">Report</a
+    >
     <div class="divider">Participantes</div>
     {#if participants && participants.length > 0}
         <div class="grid gap-4">

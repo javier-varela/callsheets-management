@@ -18,6 +18,7 @@ use App\Services\ProjectAssignmentService;
 use App\Repositories\ProjectAssignmentRepository;
 use App\Repositories\ProjectRoleAssignmentRepository;
 use App\Repositories\ProjectRoleRepository;
+use App\Repositories\ReportRepository;
 use App\Repositories\StatsRepository;
 use App\Services\CallsheetEventService;
 use App\Services\CallsheetService;
@@ -26,6 +27,7 @@ use App\Services\ProjectAdminService;
 use App\Services\ProjectRoleService;
 use App\Services\StatsService;
 use App\Services\ProjectRoleAssignmentService;
+use App\Services\ReportService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -74,6 +76,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(StatsRepository::class, function ($app) {
             return new StatsRepository();
         });
+        $this->app->bind(ReportRepository::class, function ($app) {
+            return new ReportRepository();
+        });
 
         //Services
 
@@ -111,6 +116,10 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(EventCastService::class, function ($app) {
             return new EventCastService($app->make(EventCastRepository::class));
+        });
+
+        $this->app->bind(ReportService::class, function ($app) {
+            return new ReportService($app->make(ReportRepository::class));
         });
     }
 

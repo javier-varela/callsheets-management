@@ -52,6 +52,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             //events
             Route::post('callsheets/addEvent', [CallsheetsController::class, 'addEvent'])->name('admin.callsheets.event.add');
 
+
+            //
+            Route::get('/report/{project_id}', [StatsController::class, 'report'])->name('admin.report');
+
+
             //core
 
             Route::get('/stats/{project_id}', [StatsController::class, 'stats'])->name('admin.stats');

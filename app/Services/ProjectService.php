@@ -36,15 +36,24 @@ class ProjectService
 
 
     public function createProject(Request $request)
-
     {
-        $data = $request->all();
+        // Validar que el título no esté vacío
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255', // Validación del título
+        ]);
+
+        // Preparar los datos para el proyecto
+        $data = $validatedData;
         $data['user_id'] = Auth::id();
         $data['created_at'] = now()->toDateTimeString();
         $data['updated_at'] = now()->toDateTimeString();
+
+        // Crear el proyecto
         $response = $this->projectRepository->createProject($data);
+
         return $response;
     }
+
 
     public function updateProject($id, array $data)
     {

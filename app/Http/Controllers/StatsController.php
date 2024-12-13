@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\CallsheetEventService;
+use App\Services\ReportService;
 use App\Services\StatsService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -11,10 +12,15 @@ class StatsController extends Controller
 {
     protected $statsService;
     protected $callsheetEventService;
-    public function __construct(StatsService $statsService, CallsheetEventService $callsheetEventService)
-    {
+    protected $reportService;
+    public function __construct(
+        StatsService $statsService,
+        CallsheetEventService $callsheetEventService,
+        ReportService $reportService
+    ) {
         $this->statsService = $statsService;
         $this->callsheetEventService = $callsheetEventService;
+        $this->reportService = $reportService;
     }
     public function stats($project_id, Request $request)
     {
@@ -98,5 +104,22 @@ class StatsController extends Controller
         $taked_time = $request->input('taked_time');
         $this->callsheetEventService->resolveEvent($event_id, $taked_time);
         return redirect()->to($request->header('referer'))->with('success', 'evento resuelto con exito');
+    }
+
+    public function report($project_id, Request $request)
+    {
+        $date_start = $request->input('date_start', $this->reportService->getCallsheetsMinDate());
+        $date_end = $request->input('date_end', $this->reportService->getCallsheetsMaxDate());
+
+        $report = $this->reportService->getReport($project_id, $date_start, $date_end);
+
+        return Inertia::render(
+            'Dashboard/Projects/Admin/Stats/Report',
+            [
+                'date_start' => $date_start,
+                'date_end' => $date_end,
+                'report' => $report,
+            ]
+        );
     }
 }

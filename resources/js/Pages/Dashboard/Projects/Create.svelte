@@ -2,6 +2,8 @@
     import { router } from "@inertiajs/svelte";
     export let errors;
 
+    $: console.log(errors);
+
     // Definir los valores iniciales del formulario
     let values = {
         title: "",
@@ -25,13 +27,13 @@
     <form on:submit|preventDefault={handleSubmit}>
         <div class="mb-4">
             <label for="title" class="block text-sm font-medium">Título</label>
+
             <input
                 id="title"
                 type="text"
                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
                 bind:value={values.title}
                 placeholder="Título del proyecto"
-                required
             />
             {#if errors?.title}
                 <p class="text-red-500 text-xs mt-1">{errors.title}</p>
