@@ -2,12 +2,19 @@
     import CardEvent from "./Components/CardEvent.svelte";
     import AddCallsheetCastFormModal from "./Components/AddCallsheetCastFormModal.svelte";
     import AddEventsFormModal from "./Components/AddEventsFormModal.svelte";
+    import Map from "./Components/Map.svelte";
     export let events;
     export let project_participants;
     export let callsheet_id;
     export let project_id;
     export let callsheet_cast;
+    export let callsheet;
+    console.log(callsheet);
 </script>
+
+<h1>{callsheet.title}</h1>
+<p>{callsheet.instructions}</p>
+<Map latitud={callsheet.latitud} longitud={callsheet.longitud} zoom={17} />
 
 <div class="divider">Participantes</div>
 <AddCallsheetCastFormModal {project_id} {callsheet_id} {project_participants} />

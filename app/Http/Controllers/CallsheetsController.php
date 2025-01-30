@@ -57,7 +57,7 @@ class CallsheetsController extends Controller
         $events = $this->callsheetEventService->getEventsByCallsheetId($callsheet_id);
         $project_participants = $this->projectAssignmentService->getAssignmentsWithRoleByProjectId($project_id);
         $callsheet_cast = $this->callsheetCastService->getCastByCallsheetId($callsheet_id);
-
+        $callsheet = $this->callsheetService->getByProjectId($project_id)[0];
         return Inertia::render(
             'Dashboard/Projects/Admin/Callsheets/Show',
             [
@@ -65,7 +65,8 @@ class CallsheetsController extends Controller
                 'project_participants' => $project_participants,
                 'callsheet_id' => $callsheet_id,
                 'project_id' => $project_id,
-                'callsheet_cast' => $callsheet_cast
+                'callsheet_cast' => $callsheet_cast,
+                'callsheet' => $callsheet
             ]
         );
     }

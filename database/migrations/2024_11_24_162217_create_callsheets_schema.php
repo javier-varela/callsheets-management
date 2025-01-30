@@ -18,6 +18,11 @@ return new class extends Migration
             $table->string('instructions')->nullable();
             $table->timestamp('start_date')->nullable();
             $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
+            $table->float('latitud')->nullable();
+            $table->float('longitud')->nullable();
+            $table->foreignId('id_provincia')->nullable()->constrained('provincias');
+            $table->foreignId('id_canton')->nullable()->constrained('cantones');
+            $table->foreignId('id_parroquia')->nullable()->constrained('parroquias');
         });
 
         Schema::create('callsheets_cast', function (Blueprint $table) {

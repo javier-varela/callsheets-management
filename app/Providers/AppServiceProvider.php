@@ -5,7 +5,9 @@ namespace App\Providers;
 use App\Repositories\CallsheetCastRepository;
 use App\Repositories\CallsheetEventRepository;
 use App\Repositories\CallsheetRepository;
+use App\Repositories\CantonesRepository;
 use App\Repositories\EventCastRepository;
+use App\Repositories\ParroquiasRepository;
 use App\Repositories\ProjectAdminRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\ProjectRepository;
@@ -18,15 +20,19 @@ use App\Services\ProjectAssignmentService;
 use App\Repositories\ProjectAssignmentRepository;
 use App\Repositories\ProjectRoleAssignmentRepository;
 use App\Repositories\ProjectRoleRepository;
+use App\Repositories\ProvinciasRepository;
 use App\Repositories\ReportRepository;
 use App\Repositories\StatsRepository;
 use App\Services\CallsheetEventService;
 use App\Services\CallsheetService;
+use App\Services\CantonesService;
 use App\Services\EventCastService;
+use App\Services\ParroquiasService;
 use App\Services\ProjectAdminService;
 use App\Services\ProjectRoleService;
 use App\Services\StatsService;
 use App\Services\ProjectRoleAssignmentService;
+use App\Services\ProvinciasService;
 use App\Services\ReportService;
 
 class AppServiceProvider extends ServiceProvider
@@ -80,6 +86,18 @@ class AppServiceProvider extends ServiceProvider
             return new ReportRepository();
         });
 
+        //Locaciones
+
+        $this->app->bind(ProvinciasRepository::class, function ($app) {
+            return new ProvinciasRepository();
+        });
+        $this->app->bind(CantonesRepository::class, function ($app) {
+            return new CantonesRepository();
+        });
+        $this->app->bind(ParroquiasRepository::class, function ($app) {
+            return new ParroquiasRepository();
+        });
+
         //Services
 
         $this->app->bind(ProjectService::class, function ($app) {
@@ -120,6 +138,18 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ReportService::class, function ($app) {
             return new ReportService($app->make(ReportRepository::class));
+        });
+
+        //locaciones
+
+        $this->app->bind(ProvinciasService::class, function ($app) {
+            return new ProvinciasService($app->make(ProvinciasRepository::class));
+        });
+        $this->app->bind(CantonesService::class, function ($app) {
+            return new CantonesService($app->make(CantonesRepository::class));
+        });
+        $this->app->bind(ParroquiasService::class, function ($app) {
+            return new ParroquiasService($app->make(ParroquiasRepository::class));
         });
     }
 
