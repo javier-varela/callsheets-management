@@ -27,6 +27,7 @@ use App\Services\CallsheetEventService;
 use App\Services\CallsheetService;
 use App\Services\CantonesService;
 use App\Services\EventCastService;
+use App\Services\LocationService;
 use App\Services\ParroquiasService;
 use App\Services\ProjectAdminService;
 use App\Services\ProjectRoleService;
@@ -150,6 +151,13 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(ParroquiasService::class, function ($app) {
             return new ParroquiasService($app->make(ParroquiasRepository::class));
+        });
+        $this->app->bind(LocationService::class, function ($app) {
+            return new LocationService(
+                $app->make(ProvinciasRepository::class),
+                $app->make(CantonesRepository::class),
+                $app->make(ParroquiasRepository::class)
+            );
         });
     }
 

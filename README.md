@@ -87,13 +87,10 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
     npm run build
     ```
 
-## Tests
+## Credenciales para Login
 
-Ejecuta las pruebas con el siguiente comando:
-
-```bash
-php artisan test
-```
+-   **User**: user1@user.com, user2@user.com, ..., user10@user.com
+-   **Password**: password
 
 ## Características
 
